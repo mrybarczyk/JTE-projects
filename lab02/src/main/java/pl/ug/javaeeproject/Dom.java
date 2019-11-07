@@ -1,4 +1,4 @@
-package com.lab02.lab02;
+package pl.ug.javaeeproject;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -11,7 +11,7 @@ public class Dom {
 	private Okno okno;
 	private Drzwi drzwi;
 
-	public Dom(Okno okno, Drzwi drzwi){
+	public Dom(@Autowired Okno okno, @Autowired Drzwi drzwi){
 		this.okno = okno;
 		this.drzwi = drzwi;
 	}
@@ -29,28 +29,16 @@ public class Dom {
 	public static class Drzwi {
 		private String kolor;
 
-		@Autowired
+		public Drzwi() {}
+
 		public Drzwi(String kolor){
 			this.kolor = "Czarny";
 		}
 
-		//public Drzwi(String kolor){
-		//	this.kolor = kolor;
-		//}
-	}
-
-	@Configuration
-	@ComponentScan(basePackageClasses = Dom.class)
-	public class Config {
-		@Bean
-		public Okno getOkno() {
-			return new Okno(90, 30);
-		}
-
-		@Bean
-		public Drzwi getDrzwi(){
-			return new Drzwi("Czarny");
+		public String getKolor() {
+			return kolor;
 		}
 
 	}
 }
+

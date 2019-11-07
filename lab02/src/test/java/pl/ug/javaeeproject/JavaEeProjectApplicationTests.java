@@ -1,10 +1,10 @@
-package com.lab02.lab02;
+package pl.ug.javaeeproject;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class Lab02ApplicationTests {
+class JavaEeProjectApplicationTests {
 
 	@Test
 	void contextLoads() {
