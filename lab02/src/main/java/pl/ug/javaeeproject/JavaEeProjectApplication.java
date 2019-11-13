@@ -12,6 +12,7 @@ public class JavaEeProjectApplication {
 	public static void main(String[] args) {
 		ConfigurableApplicationContext ctx = SpringApplication.run(JavaEeProjectApplication.class, args);
 		System.out.println(ctx.getBean(Dom.Drzwi.class).getKolor());
+		System.out.println(ctx.getBean(Dom.Okno.class).getSize());
         ctx.close();
 	}
 
