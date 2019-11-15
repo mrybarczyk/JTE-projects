@@ -1,7 +1,6 @@
 package pl.edu.ug.tent.springweb;
 
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -21,14 +20,12 @@ public class HelloServlet extends HttpServlet {
     out.println("<form action='/calc' method='POST'>");
     out.println("<input type='text' name='liczba1'>");
     out.println("<input type='text' name='liczba2'>");
-    out.println("</form><table><tr>");
-    out.println("<form action='/calc' method='POST'>");
+    out.println("<table><tr>");
     out.println("<td><label for='plus'>+</label><input type='radio' name='maths' id='plus' value='+'</td>");
     out.println("<td><label for='minus'>-</label><input type='radio' name='maths' id='minus' value='-'</td>");
     out.println("<td><label for='star'>*</label><input type='radio' name='maths' id='star' value='*'</td>");
     out.println("<td><label for='slash'>/</label><input type='radio' name='maths' id='slash' value='/'</td>");
-    out.println("</tr></form><tr>");
-    out.println("<form action='/calc' method='POST'>");
+    out.println("</tr><tr>");
     out.println("<td><input type='submit' name='result' value='='</td>");
     out.println("</tr></table></form>");
     out.println("</body></html>");
@@ -41,7 +38,7 @@ public class HelloServlet extends HttpServlet {
     String number1 = req.getParameter("liczba1");
     String number2 = req.getParameter("liczba2");
     String maths = req.getParameter("maths");
-    String zero = "Nie wolno dzielić przez 0!";
+    String zero = "Nie wolno dzielic przez 0!";
     String equals = "=";
     double b = 0;
     resp.setContentType("text/html");
@@ -49,38 +46,41 @@ public class HelloServlet extends HttpServlet {
     out.println("<html><body>");
     out.println("<form action='/calc' method='POST'>");
     out.println("<input type='text' name='liczba1'>");
-    out.println("<input type='text' name='liczb2'>");
-    out.println("</form><table><tr>");
-    out.println("<form action='/calc' method='POST'>");
+    out.println("<input type='text' name='liczba2'>");
+    out.println("<table><tr>");
     out.println("<td><label for='plus'>+</label><input type='radio' name='maths' id='plus' value='+'</td>");
     out.println("<td><label for='minus'>-</label><input type='radio' name='maths' id='minus' value='-'</td>");
     out.println("<td><label for='star'>*</label><input type='radio' name='maths' id='star' value='*'</td>");
     out.println("<td><label for='slash'>/</label><input type='radio' name='maths' id='slash' value='/'</td>");
-    out.println("</tr></form><tr>");
-    out.println("<form action='/calc' method='POST'>");
+    out.println("</tr><tr>");
     out.println("<td><input type='submit' name='result' value='='</td>");
     out.println("</tr></table></form>");
-    if (maths == "+"){
-      b = plus(Double.valueOf(number1), Double.valueOf(number2));
-      out.println("<h3>" + number1 + maths + number2 + equals + b + "</h3>");
+    try {
+      if((maths != null && !maths.isEmpty()) && (number1 != null && !number1.isEmpty()) && (number2 != null && !number2.isEmpty())  ) {
+        if (maths.equals("+")) {
+          b = plus(Double.parseDouble(number1), Double.parseDouble(number2));
+          out.println("<h3>" + number1 + maths + number2 + equals + b + "</h3>");
+        }
+        if (maths.equals("-")) {
+          b = minus(Double.parseDouble(number1), Double.parseDouble(number2));
+          out.println("<h3>" + number1 + maths + number2 + equals + b + "</h3>");
+        }
+        if (maths.equals("*")) {
+          b = star(Double.parseDouble(number1), Double.parseDouble(number2));
+          out.println("<h3>" + number1 + maths + number2 + equals + b + "</h3>");
+        }
+        if (maths.equals("/")) {
+          if (Double.parseDouble(number2) == 0) out.println("<h3>" + zero + "</h3>");
+          else {
+            b = slash(Double.parseDouble(number1), Double.parseDouble(number2));
+            out.println("<h3>" + number1 + maths + number2 + equals + b + "</h3>");
+          }
+        }
+      } else out.println("<h3>" + "Nie podano symbolu lub liczb(y)" + "</h3>");
+      out.println("</body></html>");
+    } catch (NumberFormatException e){
+      out.println("<h3>" + "Jedna z liczb nie jest liczba." + "</h3>");
     }
-    if (maths == "-"){
-      b = minus(Double.valueOf(number1), Double.valueOf(number2));
-      out.println("<h3>" + number1 + maths + number2 + equals + b + "</h3>");
-    }
-    if (maths == "*"){
-      b = star(Double.valueOf(number1), Double.valueOf(number2));
-      out.println("<h3>" + number1 + maths + number2 + equals + b + "</h3>");
-    }
-    if (maths == "/"){
-      if (Double.valueOf(number2) == 0) out.println("<h3>" + zero + "</h3>");
-      else{
-        b = slash(Double.valueOf(number1), Double.valueOf(number2));
-        out.println("<h3>" + number1 + maths + number2 + equals + b + "</h3>");
-      }
-    }
-    else out.println("<h3>" + "null" + "</h3>");
-    out.println("</body></html>");
 
   }
 
