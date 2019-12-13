@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Spring MVC demo app</title>
+</head>
+<body>
+<h1>Welcome to our app</h1>
+
+<form action="#" th:action="@{/item/update/{id}(id=${item.itemID})}" th:object="${item}" method="post">
+    <label for="name">Name</label>
+    <input type="text" th:field="*{name}" id="name" placeholder="Item name">
+    <label for="manufacturer">Manufacturer</label>
+    <input type="text" th:field="*{manufacturer}" id="manufacturer" placeholder="Manufacturer">
+    <label for="model">Model</label>
+    <input type="text" th:field="*{model}" id="model" placeholder="Model">
+    <label for="price">Price</label>
+    <input type="text" th:field="*{price}" id="price" placeholder="Price">
+    <label for="quantity">Quantity</label>
+    <input type="text" th:field="*{quantity}" id="quantity" placeholder="Quantity">
+    <input type="submit" value="Zapisz zmiany">
+</form>
+
+</form>
+</body>
+</html>

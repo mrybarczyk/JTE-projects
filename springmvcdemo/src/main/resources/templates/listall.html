@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org" >
+<head>
+    <meta charset="UTF-8">
+    <title>History</title>
+</head>
+<body>
+<div th:switch="${list.size()}">
+    <div th:case="'0'">History is empty.</div>
+    <div th:case="*">
+        <div th:each="list : ${list}">
+            <span th:text="${list}"></span>
+        </div>
+    </div>
+    <p><a href="/">Home</a></p>
+</div>
+
+</body>
+</html>

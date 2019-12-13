@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Spring MVC demo app</title>
+</head>
+<body>
+<h1>Welcome to our app</h1>
+
+<h2>We have <span th:text="${items.size()}"></span> item(s) in our database</h2>
+<div th:switch="${items}">
+    <h2 th:case="0">No items</h2>
+    <div th:case="*">
+        <table>
+            <thead>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Manufacturer</th>
+                <th>Model</th>
+                <th>Price</th>
+                <th>Quantity</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="item : ${items}">
+                <td th:text="${item.itemID}"></td>
+                <td th:text="${item.name}"></td>
+                <td th:text="${item.manufacturer}"></td>
+                <td th:text="${item.model}"></td>
+                <td th:text="${item.price}"></td>
+                <td th:text="${item.quantity}"></td>
+                <td><a th:href="@{/item/edit/{id}(id=${item.itemID})}">Edit</a></td>
+                <td><a th:href="@{/item/delete/{id}(id=${item.itemID})}">Delete</a></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <p><a href="/item/new">Add new item</a></p>
+    <p><a href="/listall">History</a></p>
+</div>
+
+</form>
+</body>
