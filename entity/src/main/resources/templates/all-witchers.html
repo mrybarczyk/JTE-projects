@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Spring MVC demo app</title>
+</head>
+<body>
+<h1>Welcome to our app</h1>
+
+<h2>We have <span th:text="${witchers.size()}"></span> witchers in our database</h2>
+<div th:switch="${witchers}">
+    <h2 th:case="null">No witchers</h2>
+    <div th:case="*">
+        <h2>witchers</h2>
+        <table>
+            <thead>
+            <tr>
+                <th>Name</th>
+                <th>Title</th>
+                <th>Pouch No.</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="witcher : ${witchers}">
+                <td th:text="${witcher.name}"></td>
+                <td th:text="${witcher.title}"></td>
+                <td th:text="${witcher.pouch.pouchID}"></td>
+                <td><a th:href="@{/witcher/edit/{id}(id=${witcher.witcherID})}">Edit</a></td>
+                <td><a th:href="@{/witcher/delete/{id}(id=${witcher.witcherID})}">Delete</a></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <p><a href="/witcher/new">Add new witcher</a></p>
+</div>
+
+</form>
+</body>

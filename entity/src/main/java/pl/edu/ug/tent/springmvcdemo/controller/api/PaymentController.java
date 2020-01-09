@@ -8,40 +8,35 @@ import pl.edu.ug.tent.springmvcdemo.exception.IdMismatchException;
 import pl.edu.ug.tent.springmvcdemo.exception.NotFoundException;
 import pl.edu.ug.tent.springmvcdemo.service.PaymentManager;
 
+import java.util.List;
+
 @RestController
 public class PaymentController {
     @Autowired
     private PaymentManager pm;
 
     @GetMapping("/api/payment")
-    public Iterable getPayments() {
-        return pm.findAll();
-    }
+    public List<Payment> getPayment() { return pm.getAllPayments(); }
 
     @PostMapping("/api/payment")
-    @ResponseStatus(HttpStatus.CREATED)
-    public Payment create(@RequestBody Payment p) {
-        return pm.save(p);
+    Payment addPayment(@RequestBody Payment p){
+        Payment pToAdd = new Payment();
+        pm.addPayment(pToAdd);
+        return pToAdd;
     }
 
     @GetMapping("/api/payment/{id}")
-    public Payment findOne(@PathVariable int id) {
-        return pm.findById(id).orElseThrow(NotFoundException::new);
+    Payment getPayment(@PathVariable int paymentID) {
+        return pm.findById(paymentID);
     }
 
     @PutMapping("/api/payment/{id}")
-    public Payment update(@RequestBody Payment p, @PathVariable int id) {
-        if (p.getPaymentID() != id) {
-            throw new IdMismatchException();
-        }
-        pm.findById(id)
-                .orElseThrow(NotFoundException::new);
-        return pm.save(p);
+    Payment replacePayment(@RequestBody Payment p, @PathVariable int paymentID) {
+        return pm.findById(p.getPaymentID());
     }
 
     @DeleteMapping("/api/payment/{id}")
-    public void delete(@PathVariable int id) {
-        pm.findById(id).orElseThrow(NotFoundException::new);
-        pm.deleteById(id);
+    void deletePayment(@PathVariable int paymentID) {
+        pm.remove(paymentID);
     }
 }

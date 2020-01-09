@@ -12,15 +12,15 @@ public class Pouch {
     @GeneratedValue
     private int pouchID;
 
-    @ManyToOne
-    @JoinColumn(name = "PaymentID", nullable = false)
+    @OneToMany
+    @JoinColumn(name = "Payments", nullable = false)
     private List<Payment> tossacoin;
 
     public Pouch(){
 
     }
 
-    public Pouch(int pouchID, List<Payment> tossacoin) {
+    public Pouch(List<Payment> tossacoin) {
         this.tossacoin = tossacoin;
     }
 

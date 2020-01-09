@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Spring MVC demo app</title>
+</head>
+<body>
+<h1>Welcome to our app</h1>
+
+<form action="#" th:action="@{/payment/add}" th:object="${payment}" method="post">
+    <label for="witcherID">WitcherID</label>
+    <input type="text" th:field="*{witcherID}" id="witcherID" placeholder="WitcherID">
+    <label for="person">PersonID</label>
+    <input type="text" th:field="*{personID}" id="person" placeholder="PersonID">
+    <label for="value">Value</label>
+    <input type="text" th:field="*{value}" id="value" placeholder="Value">
+    <input type="submit" value="Confirm Payment">
+</form>
+
+</form>
+</body>
+</html>

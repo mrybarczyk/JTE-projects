@@ -17,11 +17,11 @@ public class Person {
     @Column
     private String title;
 
-    public Person(String name, String title){
+    public Person(){
 
     }
 
-    public Person(int personID, String name, String title) {
+    public Person(String name, String title) {
         this.name = name;
         this.title = title;
     }

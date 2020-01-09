@@ -3,15 +3,16 @@ package pl.edu.ug.tent.springmvcdemo.controller.web;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.*;
 import pl.edu.ug.tent.springmvcdemo.domain.Person;
 import pl.edu.ug.tent.springmvcdemo.service.PersonManager;
+import javax.validation.Valid;
 
-@Controller("personwebcontroller")
+@Controller("Personwebcontroller")
 public class PersonController {
 
+  @Autowired
   private PersonManager pm;
 
   @Autowired
@@ -21,8 +22,8 @@ public class PersonController {
 
   @GetMapping("/person")
   public String home(Model model){
-    model.addAttribute("persons", pm.getAllPersons());
-    return "person-all";
+    model.addAttribute("people", pm.getPeople());
+    return "all-people";
   }
 
   @GetMapping("/person/new")
@@ -31,18 +32,32 @@ public class PersonController {
     return "person-add";
   }
 
-  @GetMapping("/person/delete/{id}")
-  public String deletePerson(@PathVariable("id") String id, Model model) {
+  @GetMapping("/person/delete/{PersonID}")
+  public String deletePerson(@PathVariable("PersonID") int id, Model model) {
     pm.remove(id);
-    model.addAttribute("persons", pm.getAllPersons());
-    return "person-all";
+    model.addAttribute("people", pm.getPeople());
+    return "all-people";
   }
 
   @PostMapping("/person/add")
-  public String addPerson(Person person, Model model) {
-    pm.addPerson(person);
-    model.addAttribute("persons", pm.getAllPersons());
-    return "person-all";
+  public String addPerson(Person Person, Model model) {
+    pm.addPerson(Person);
+    model.addAttribute("people", pm.getPeople());
+    return "all-people";
+  }
+
+  @PostMapping("/person/update/{PersonID}")
+  public String updatePerson(@PathVariable("PersonID") int id, Person Person, Model model){
+    Person.setPersonID(id);
+    pm.update(Person);
+    model.addAttribute("people", pm.getPeople());
+    return "all-people";
+  }
+
+  @GetMapping("/person/edit/{PersonID}")
+  public String editPerson(@PathVariable("PersonID") int id, Model model){
+    model.addAttribute("person", pm.findById(id));
+    return "person-update";
   }
 
 }

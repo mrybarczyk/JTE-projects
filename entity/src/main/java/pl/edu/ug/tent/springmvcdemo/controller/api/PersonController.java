@@ -12,40 +12,31 @@ import java.util.List;
 
 @RestController
 public class PersonController {
-
   @Autowired
   private PersonManager pm;
 
   @GetMapping("/api/person")
-  public Iterable getPeople() {
-    return pm.findAll();
-  }
+  public List<Person> getPerson() { return pm.getPeople(); }
 
   @PostMapping("/api/person")
-  @ResponseStatus(HttpStatus.CREATED)
-  public Person create(@RequestBody Person person) {
-    return pm.save(person);
+  Person addPerson(@RequestBody Person p){
+    Person pToAdd = new Person();
+    pm.addPerson(pToAdd);
+    return pToAdd;
   }
 
   @GetMapping("/api/person/{id}")
-  public Person findOne(@PathVariable int id) {
-    return pm.findById(id).orElseThrow(NotFoundException::new);
+  Person getPerson(@PathVariable int personID) {
+    return pm.findById(personID);
   }
 
   @PutMapping("/api/person/{id}")
-  public Person update(@RequestBody Person person, @PathVariable int id) {
-    if (person.getPersonID() != id) {
-      throw new IdMismatchException();
-    }
-    pm.findById(id)
-            .orElseThrow(NotFoundException::new);
-    return pm.save(person);
+  Person replacePerson(@RequestBody Person p, @PathVariable int personID) {
+    return pm.findById(p.getPersonID());
   }
 
   @DeleteMapping("/api/person/{id}")
-  public void delete(@PathVariable int id) {
-    pm.findById(id).orElseThrow(NotFoundException::new);
-    pm.deleteById(id);
+  void deletePerson(@PathVariable int personID) {
+    pm.remove(personID);
   }
-
 }

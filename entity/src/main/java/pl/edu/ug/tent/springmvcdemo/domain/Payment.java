@@ -13,21 +13,31 @@ public class Payment {
     private int paymentID;
 
     @ManyToMany
-    @JoinColumn(name = "PersonID", nullable = false)
+    @JoinColumn(name = "People", nullable = false)
     private List<Person> people;
 
-    @OneToMany
-    @JoinColumn(name = "WitcherID", nullable = false)
+    @ManyToOne
+    @JoinColumn(name = "Witcher", nullable = false)
     private Witcher witcher;
 
+    private int value;
+
+    public int getValue() {
+        return value;
+    }
+
+    public void setValue(int value) {
+        this.value = value;
+    }
 
     public Payment(){
 
     }
 
-    public Payment(int paymentID, List<Person> people, Witcher witcher) {
+    public Payment(List<Person> people, Witcher witcher, int value) {
         this.people = people;
         this.witcher = witcher;
+        this.value = value;
     }
 
     public int getPaymentID() {

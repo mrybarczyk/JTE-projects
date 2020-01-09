@@ -2,6 +2,7 @@ package pl.edu.ug.tent.springmvcdemo.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "Witchers")
@@ -21,7 +22,7 @@ public class Witcher {
 
     }
 
-    public Witcher(int witcherID, String name, String title, Pouch pouch) {
+    public Witcher(String name, String title, Pouch pouch) {
         this.name = name;
         this.title = title;
         this.pouch = pouch;
@@ -60,7 +61,7 @@ public class Witcher {
     }
 
     @OneToOne
-    @JoinColumn(name = "PouchID")
+    @JoinColumn(name = "Pouch")
     private Pouch pouch;
 
 }

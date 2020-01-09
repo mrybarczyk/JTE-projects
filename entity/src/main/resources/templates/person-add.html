@@ -8,10 +8,10 @@
 <h1>Welcome to our app</h1>
 
 <form action="#" th:action="@{/person/add}" th:object="${person}" method="post">
-  <label for="firstName">Name</label>
-  <input type="text" th:field="*{firstName}" id="firstName" placeholder="Your name">
-  <label for="yob">Year of birth</label>
-  <input type="text" th:field="*{yob}" id="yob" placeholder="2000">
+  <label for="name">Name</label>
+  <input type="text" th:field="*{name}" id="name" placeholder="Name">
+  <label for="title">Title</label>
+  <input type="text" th:field="*{title}" id="title" placeholder="Title">
   <input type="submit" value="Add Person">
 </form>
 

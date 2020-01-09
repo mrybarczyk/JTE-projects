@@ -8,40 +8,35 @@ import pl.edu.ug.tent.springmvcdemo.exception.IdMismatchException;
 import pl.edu.ug.tent.springmvcdemo.exception.NotFoundException;
 import pl.edu.ug.tent.springmvcdemo.service.WitcherManager;
 
+import java.util.List;
+
 @RestController
 public class WitcherController {
     @Autowired
     private WitcherManager wm;
 
     @GetMapping("/api/witcher")
-    public Iterable getWitchers() {
-        return wm.findAll();
-    }
+    public List<Witcher> getWitcher() { return wm.getAllWitchers(); }
 
     @PostMapping("/api/witcher")
-    @ResponseStatus(HttpStatus.CREATED)
-    public Witcher create(@RequestBody Witcher w) {
-        return wm.save(w);
+    Witcher addWitcher(@RequestBody Witcher w){
+        Witcher witcherToAdd = new Witcher();
+        wm.addWitcher(witcherToAdd);
+        return witcherToAdd;
     }
 
     @GetMapping("/api/witcher/{id}")
-    public Witcher findOne(@PathVariable int id) {
-        return wm.findById(id).orElseThrow(NotFoundException::new);
+    Witcher getWitcher(@PathVariable int witcherID) {
+        return wm.findById(witcherID);
     }
 
     @PutMapping("/api/witcher/{id}")
-    public Witcher update(@RequestBody Witcher w, @PathVariable int id) {
-        if (w.getWitcherID() != id) {
-            throw new IdMismatchException();
-        }
-        wm.findById(id)
-                .orElseThrow(NotFoundException::new);
-        return wm.save(w);
+    Witcher replaceWitcher(@RequestBody Witcher w, @PathVariable int witcherID) {
+        return wm.findById(w.getWitcherID());
     }
 
     @DeleteMapping("/api/witcher/{id}")
-    public void delete(@PathVariable int id) {
-        wm.findById(id).orElseThrow(NotFoundException::new);
-        wm.deleteById(id);
+    void deleteWitcher(@PathVariable int witcherID) {
+        wm.remove(witcherID);
     }
 }
