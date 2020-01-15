@@ -9,7 +9,7 @@ import java.util.List;
 public class Witcher {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int witcherID;
 
     @Column(nullable = false)

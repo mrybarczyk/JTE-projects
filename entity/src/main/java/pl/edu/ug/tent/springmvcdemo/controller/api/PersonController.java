@@ -16,27 +16,27 @@ public class PersonController {
   private PersonManager pm;
 
   @GetMapping("/api/person")
-  public List<Person> getPerson() { return pm.getPeople(); }
+  public Iterable getPerson() { return pm.findAll(); }
 
   @PostMapping("/api/person")
   Person addPerson(@RequestBody Person p){
     Person pToAdd = new Person();
-    pm.addPerson(pToAdd);
+    pm.save(pToAdd);
     return pToAdd;
   }
 
   @GetMapping("/api/person/{id}")
   Person getPerson(@PathVariable int personID) {
-    return pm.findById(personID);
+    return pm.findById(personID).orElseThrow(NotFoundException::new);
   }
 
   @PutMapping("/api/person/{id}")
   Person replacePerson(@RequestBody Person p, @PathVariable int personID) {
-    return pm.findById(p.getPersonID());
+    return pm.findById(p.getPersonID()).orElseThrow(NotFoundException::new);
   }
 
   @DeleteMapping("/api/person/{id}")
   void deletePerson(@PathVariable int personID) {
-    pm.remove(personID);
+    pm.delete(pm.findById(personID).orElseThrow(NotFoundException::new));
   }
 }

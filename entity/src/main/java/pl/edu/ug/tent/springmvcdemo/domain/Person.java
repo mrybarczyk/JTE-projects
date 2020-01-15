@@ -2,13 +2,14 @@ package pl.edu.ug.tent.springmvcdemo.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "People")
 public class Person {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int personID;
 
     @Column(nullable = false)
@@ -16,6 +17,10 @@ public class Person {
 
     @Column
     private String title;
+
+    @ManyToMany
+    @JoinColumn(name = "Payments")
+    private List<Payment> payments;
 
     public Person(){
 
@@ -48,5 +53,13 @@ public class Person {
 
     public void setTitle(String title) {
         this.title = title;
+    }
+
+    public List<Payment> getPayments() {
+        return payments;
+    }
+
+    public void setPayments(List<Payment> payments) {
+        this.payments = payments;
     }
 }

@@ -2,6 +2,7 @@ package pl.edu.ug.tent.springmvcdemo.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -9,7 +10,7 @@ import java.util.List;
 public class Pouch {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int pouchID;
 
     @OneToMany

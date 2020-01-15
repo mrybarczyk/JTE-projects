@@ -5,18 +5,7 @@ import pl.edu.ug.tent.springmvcdemo.domain.Witcher;
 
 import java.util.List;
 
-public interface WitcherManager {
+public interface WitcherManager extends CrudRepository<Witcher, Integer>{
 
-    void addWitcher(Witcher w);
-
-    List<Witcher> getAllWitchers();
-
-    Witcher findById(int witcherID);
-
-    void remove(int witcherID);
-
-    List<Witcher> findByName(String name);
-
-    void update(Witcher w);
 
 }

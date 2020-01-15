@@ -16,27 +16,27 @@ public class PaymentController {
     private PaymentManager pm;
 
     @GetMapping("/api/payment")
-    public List<Payment> getPayment() { return pm.getAllPayments(); }
+    public Iterable getPayment() { return pm.findAll(); }
 
     @PostMapping("/api/payment")
     Payment addPayment(@RequestBody Payment p){
         Payment pToAdd = new Payment();
-        pm.addPayment(pToAdd);
+        pm.save(pToAdd);
         return pToAdd;
     }
 
     @GetMapping("/api/payment/{id}")
     Payment getPayment(@PathVariable int paymentID) {
-        return pm.findById(paymentID);
+        return pm.findById(paymentID).orElseThrow(NotFoundException::new);
     }
 
     @PutMapping("/api/payment/{id}")
     Payment replacePayment(@RequestBody Payment p, @PathVariable int paymentID) {
-        return pm.findById(p.getPaymentID());
+        return pm.findById(p.getPaymentID()).orElseThrow(NotFoundException::new);
     }
 
     @DeleteMapping("/api/payment/{id}")
     void deletePayment(@PathVariable int paymentID) {
-        pm.remove(paymentID);
+        pm.delete(pm.findById(paymentID).orElseThrow(NotFoundException::new));
     }
 }

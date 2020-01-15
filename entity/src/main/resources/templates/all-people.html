@@ -11,7 +11,7 @@
 <div th:switch="${people}">
   <h2 th:case="null">No people</h2>
   <div th:case="*">
-    <h2>People</h2>
+    <h2>List of people</h2>
     <table>
       <thead>
       <tr>
@@ -30,6 +30,8 @@
     </table>
   </div>
   <p><a href="/person/new">Add new person</a></p>
+  <p><a href="/witcher">Witcher manager</a></p>
+  <p><a href="/payment">Toss a coin to your Witcher</a></p>
 </div>
 
 </form>

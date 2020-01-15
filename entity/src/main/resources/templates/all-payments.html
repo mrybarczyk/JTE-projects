@@ -7,11 +7,11 @@
 <body>
 <h1>Welcome to our app</h1>
 
-<h2>We have <span th:text="${witchers.size()}"></span> witchers in our database</h2>
-<div th:switch="${witchers}">
-    <h2 th:case="null">No witchers</h2>
+<h2>We have <span th:text="${payments.size()}"></span> payments in our database</h2>
+<div th:switch="${payments}">
+    <h2 th:case="null">No payments</h2>
     <div th:case="*">
-        <h2>witchers</h2>
+        <h2>List of Payments</h2>
         <table>
             <thead>
             <tr>
@@ -22,8 +22,10 @@
             </thead>
             <tbody>
             <tr th:each="payment : ${payments}">
-                <td th:text="${payment.witcher}"></td>
-                <td th:each="person : ${payment.people}"></td>
+                <td th:text="${witcher.witcherID}"></td>
+                <td th:each="person : ${people}">
+                <span th:text="${person.personID}"> personID </span>
+                </td>
                 <td th:text="${payment.value}"></td>
                 <td><a th:href="@{/payment/edit/{id}(id=${payment.paymentID})}">Edit</a></td>
                 <td><a th:href="@{/payment/delete/{id}(id=${payment.paymentID})}">Delete</a></td>
@@ -31,7 +33,10 @@
             </tbody>
         </table>
     </div>
-    <p><a href="/witcher/new">Make a new payment</a></p>
+    <p><a href="/payment/new">Toss a coin to your Witcher</a></p>
+    <p><a href="/person">Person manager</a></p>
+    <p><a href="/witcher">Witcher manager</a></p>
+
 </div>
 
 </form>

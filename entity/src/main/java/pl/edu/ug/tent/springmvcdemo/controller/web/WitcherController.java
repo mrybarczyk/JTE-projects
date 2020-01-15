@@ -28,7 +28,7 @@ public class WitcherController {
 
     @GetMapping("/witcher")
     public String home(Model model){
-        model.addAttribute("witchers", wm.getAllWitchers());
+        model.addAttribute("witchers", wm.findAll());
         return "all-witchers";
     }
 
@@ -38,38 +38,40 @@ public class WitcherController {
         return "witcher-add";
     }
 
-    @GetMapping("/witcher/delete/{WitcherID}")
-    public String deleteWitcher(@PathVariable("WitcherID") int id, Model model) {
-        Witcher getThePouch = wm.findById(id);
-        Pouch wPouch = pm.findById(getThePouch.getWitcherID());
-        pm.remove(wPouch.getPouchID());
-        wm.remove(id);
-        model.addAttribute("witchers", wm.getAllWitchers());
+    @GetMapping("/witcher/delete/{witcherID}")
+    public String deleteWitcher(@PathVariable("witcherID") int id, Model model) {
+        Witcher getThePouch = wm.findById(id).orElse(null);
+        Pouch wPouch = pm.findById(getThePouch.getWitcherID()).orElse(null);
+        pm.delete(wPouch);
+        wm.delete(getThePouch);
+        model.addAttribute("witchers", wm.findAll());
         return "all-witchers";
     }
 
     @PostMapping("/witcher/add")
     public String addWitcher(Witcher p, Model model) {
         Pouch newPouch = new Pouch();
-        pm.addPouch(newPouch);
+        newPouch.setPouchID(p.getWitcherID());
+        pm.save(newPouch);
         
         p.setPouch(newPouch);
-        wm.addWitcher(p);
-        model.addAttribute("witchers", wm.getAllWitchers());
+        wm.save(p);
+        model.addAttribute("witchers", wm.findAll());
         return "all-witchers";
     }
 
-    @PostMapping("/witcher/update/{WitcherID}")
-    public String updateWitcher(@PathVariable("WitcherID") int id, Witcher p, Model model){
+    @PostMapping("/witcher/update/{witcherID}")
+    public String updateWitcher(@PathVariable("witcherID") int id, Witcher p, Model model){
         p.setWitcherID(id);
-        wm.update(p);
-        model.addAttribute("witchers", wm.getAllWitchers());
-        return "all-witcher";
+        wm.save(p);
+        model.addAttribute("witchers", wm.findAll());
+        return "all-witchers";
     }
 
-    @GetMapping("/witcher/edit/{WitcherID}")
-    public String editWitcher(@PathVariable("WitcherID") int id, Model model){
-        model.addAttribute("witcher", wm.findById(id));
+    @GetMapping("/witcher/edit/{witcherID}")
+    public String editWitcher(@PathVariable("witcherID") int id, Model model){
+        Witcher w = wm.findById(id).orElse(null);
+        model.addAttribute("witcher", w);
         return "witcher-update";
     }
 
