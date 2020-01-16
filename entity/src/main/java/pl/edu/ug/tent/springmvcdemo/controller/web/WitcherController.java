@@ -63,6 +63,8 @@ public class WitcherController {
     @PostMapping("/witcher/update/{witcherID}")
     public String updateWitcher(@PathVariable("witcherID") int id, Witcher p, Model model){
         p.setWitcherID(id);
+        Witcher w = wm.findById(id).orElse(null);
+        p.setPouch(w.getPouch());
         wm.save(p);
         model.addAttribute("witchers", wm.findAll());
         return "all-witchers";

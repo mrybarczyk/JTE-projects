@@ -13,7 +13,6 @@ public class Payment {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int paymentID;
 
-//    @ManyToMany(mappedBy = "payments", cascade = CascadeType.ALL)
     @ManyToMany
     @JsonIgnore
     @JoinColumn(name = "People", nullable = false)

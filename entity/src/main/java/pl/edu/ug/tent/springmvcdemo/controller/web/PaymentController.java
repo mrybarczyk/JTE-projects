@@ -87,8 +87,14 @@ public class PaymentController {
     }
 
     @PostMapping("/payment/update/{PaymentID}")
-    public String updatePayment(@PathVariable("PaymentID") int id, Payment p, Model model){
+    public String updatePayment(@PathVariable("PaymentID") int id, Payment p, Model model, PersonDTO pform){
         p.setPaymentID(id);
+        List<Person> people = new ArrayList<>();
+        for (int i = 0; i < 5; i++){
+            Person temp = psm.findById(pform.people.get(i).getPersonID()).orElse(null);
+            if (temp != null) people.add(temp);
+        }
+        p.setPeople(people);
         pm.save(p);
         model.addAttribute("payments", pm.findAll());
         return "all-payments";
@@ -97,7 +103,13 @@ public class PaymentController {
     @GetMapping("/payment/edit/{PaymentID}")
     public String editPayment(@PathVariable("PaymentID") int id, Model model){
         Payment p = pm.findById(id).orElse(null);
+        PersonDTO pform = new PersonDTO();
+        for (int i = 0; i < 5; i++){
+            pform.addPerson(new Person());
+        }
+        p.setPeople(pform.getPeople());
         model.addAttribute("payment", p);
+        model.addAttribute("people", pform.getPeople());
         return "payment-update";
     }
 

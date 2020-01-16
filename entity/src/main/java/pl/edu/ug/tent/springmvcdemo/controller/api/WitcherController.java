@@ -28,21 +28,25 @@ public class WitcherController {
         Pouch p = new Pouch();
         pm.save(p);
         w.setPouch(p);
-        return wm.save(w);
+        wm.save(w);
+        return w;
     }
 
     @GetMapping("/api/witcher/{id}")
-    Witcher getWitcher(@PathVariable int witcherID) {
+    Witcher getWitcher(@PathVariable("id") int witcherID) {
         return wm.findById(witcherID).orElseThrow(NotFoundException::new);
     }
 
     @PutMapping("/api/witcher/{id}")
-    Witcher replaceWitcher(@RequestBody Witcher w, @PathVariable int witcherID) {
+    Witcher replaceWitcher(@RequestBody Witcher w, @PathVariable("id") int witcherID) {
+        w.setWitcherID(witcherID);
+        w.setPouch(wm.findById(witcherID).orElse(null).getPouch());
+        wm.save(w);
         return wm.findById(w.getWitcherID()).orElseThrow(NotFoundException::new);
     }
 
     @DeleteMapping("/api/witcher/{id}")
-    void deleteWitcher(@PathVariable int witcherID) {
+    void deleteWitcher(@PathVariable("id") int witcherID) {
         wm.delete(wm.findById(witcherID).orElseThrow(NotFoundException::new));
     }
 }

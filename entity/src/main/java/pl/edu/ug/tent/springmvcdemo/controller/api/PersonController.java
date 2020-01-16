@@ -20,23 +20,24 @@ public class PersonController {
 
   @PostMapping("/api/person")
   Person addPerson(@RequestBody Person p){
-    Person pToAdd = new Person();
-    pm.save(pToAdd);
-    return pToAdd;
+    pm.save(p);
+    return p;
   }
 
   @GetMapping("/api/person/{id}")
-  Person getPerson(@PathVariable int personID) {
+  Person getPerson(@PathVariable("id") int personID) {
     return pm.findById(personID).orElseThrow(NotFoundException::new);
   }
 
   @PutMapping("/api/person/{id}")
-  Person replacePerson(@RequestBody Person p, @PathVariable int personID) {
+  Person replacePerson(@RequestBody Person p, @PathVariable("id") int personID) {
+    p.setPersonID(personID);
+    pm.save(p);
     return pm.findById(p.getPersonID()).orElseThrow(NotFoundException::new);
   }
 
   @DeleteMapping("/api/person/{id}")
-  void deletePerson(@PathVariable int personID) {
+  void deletePerson(@PathVariable("id") int personID) {
     pm.delete(pm.findById(personID).orElseThrow(NotFoundException::new));
   }
 }

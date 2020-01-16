@@ -7,24 +7,17 @@
 <body>
 <h1>Welcome to our app</h1>
 
-<form action="#" th:action="@{/payment/update/{id}(id=${payment.payment})}" th:object="${payment}" method="post">
-    <label for="witcher">WitcherID</label>
-    <input type="text" th:field="*{payment.witcherID}" id="witcher" placeholder="Witcher's ID">
-    <table>
-        <thead>
-        <tr>
-            <th>People</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr th:each="person, itemStat : *{people}">
-            <td><input th:field="*{people[__${itemStat.index}__].personID}" /></td>
-        </tr>
-        </tbody>
-    </table>
+<form action="#" th:action="@{/payment/update/{id}(id=${payment.paymentID})}" th:object="${payment}" method="post">
+    <label for="witcherID">WitcherID</label>
+    <input type="text" th:field="*{witcher.witcherID}" id="witcherID" placeholder="WitcherID">
+    <tbody>
+    <tr th:each="person, itemStat : *{people}">
+        <td><input th:field="*{people[__${itemStat.index}__].personID}" /></td>
+    </tr>
+    </tbody>
     <label for="value">Value</label>
-    <input type="text" th:field="*{payment.value}" id="value" placeholder="Value">
-    <input type="submit" value="Zapisz zmiany">
+    <input type="text" th:field="*{value}" id="value" placeholder="Value">
+    <input type="submit" value="Save changes">
 </form>
 
 </form>
