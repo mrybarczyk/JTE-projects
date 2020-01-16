@@ -18,9 +18,12 @@ public class Person {
     @Column
     private String title;
 
-    @ManyToMany
-    @JoinColumn(name = "Payments")
-    private List<Payment> payments;
+//    @ManyToMany(fetch = FetchType.EAGER)
+//    @ManyToMany(fetch = FetchType.EAGER, mappedBy = "people", cascade = CascadeType.ALL)
+//    @ManyToMany
+//    @JsonIgnore
+//    @JoinColumn(name = "Payments")
+//      private List<Payment> payments;
 
     public Person(){
 
@@ -54,12 +57,12 @@ public class Person {
     public void setTitle(String title) {
         this.title = title;
     }
-
+/*
     public List<Payment> getPayments() {
         return payments;
     }
 
     public void setPayments(List<Payment> payments) {
         this.payments = payments;
-    }
+    }*/
 }

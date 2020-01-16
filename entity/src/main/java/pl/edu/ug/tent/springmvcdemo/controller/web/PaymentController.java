@@ -38,6 +38,7 @@ public class PaymentController {
 
     @GetMapping("/payment")
     public String home(Model model){
+        model.addAttribute("witcher", new Witcher());
         model.addAttribute("payments", pm.findAll());
         return "all-payments";
     }
@@ -73,21 +74,13 @@ public class PaymentController {
         p.setPeople(people);
         Witcher w = wm.findById(p.getWitcher().getWitcherID()).orElse(null);
         p.setWitcher(w);
-        pm.save(p);
         Pouch pouch = w.getPouch();
-        List<Payment> b = pouch.getTossacoin();
-        b.add(p);
-        pouch.setTossacoin(b);
-        pcm.save(pouch);
+        List<Pouch> b = p.getTossacoin();
+        b.add(pouch);
+        p.setTossacoin(b);
         w.setPouch(pouch);
         wm.save(w);
-        for (int i = 0; i < people.size(); i++){
-            Person temp = psm.findById(people.get(i).getPersonID()).orElse(null);
-            List<Payment> xd = temp.getPayments();
-            xd.add(p);
-            temp.setPayments(xd);
-            psm.save(temp);
-        }
+        pm.save(p);
 
         model.addAttribute("payments", pm.findAll());
         return "all-payments";

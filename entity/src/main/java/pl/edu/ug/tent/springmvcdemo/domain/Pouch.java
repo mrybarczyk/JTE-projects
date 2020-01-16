@@ -13,16 +13,8 @@ public class Pouch {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int pouchID;
 
-    @OneToMany
-    @JoinColumn(name = "Payments", nullable = false)
-    private List<Payment> tossacoin;
-
     public Pouch(){
 
-    }
-
-    public Pouch(List<Payment> tossacoin) {
-        this.tossacoin = tossacoin;
     }
 
     public int getPouchID() {
@@ -32,14 +24,5 @@ public class Pouch {
     public void setPouchID(int pouchID) {
         this.pouchID = pouchID;
     }
-
-    public List<Payment> getTossacoin() {
-        return tossacoin;
-    }
-
-    public void setTossacoin(List<Payment> tossacoin) {
-        this.tossacoin = tossacoin;
-    }
-
 
 }

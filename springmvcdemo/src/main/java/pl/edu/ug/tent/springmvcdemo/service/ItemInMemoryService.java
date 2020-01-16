@@ -82,8 +82,6 @@ public class ItemInMemoryService implements ItemManager {
                 items.set(foo, item);
                 lm.update(items.get(foo).getItemID());
             }
-        } else {
-            throw new IllegalArgumentException("\nYour data didn't validate properly. Check if the given Quantity is greater than 0, and/or the given Price is equal or grater than 0.");
         }
     }
 }

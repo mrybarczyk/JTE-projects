@@ -22,8 +22,8 @@
             </thead>
             <tbody>
             <tr th:each="payment : ${payments}">
-                <td th:text="${witcher.witcherID}"></td>
-                <td th:each="person : ${people}">
+                <td th:text="${payment.witcher.witcherID}"></td>
+                <td th:each="person : ${payment.people}">
                 <span th:text="${person.personID}"> personID </span>
                 </td>
                 <td th:text="${payment.value}"></td>

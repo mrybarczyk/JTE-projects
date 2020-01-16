@@ -2,6 +2,7 @@ package pl.edu.ug.tent.springmvcdemo.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -12,7 +13,9 @@ public class Payment {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int paymentID;
 
+//    @ManyToMany(mappedBy = "payments", cascade = CascadeType.ALL)
     @ManyToMany
+    @JsonIgnore
     @JoinColumn(name = "People", nullable = false)
     private List<Person> people;
 
@@ -21,6 +24,10 @@ public class Payment {
     private Witcher witcher;
 
     private int value;
+
+    @OneToMany
+    @JoinColumn(name = "Payments", nullable = true)
+    private List<Pouch> tossacoin = new ArrayList<>();
 
     public int getValue() {
         return value;
@@ -62,5 +69,13 @@ public class Payment {
 
     public void setWitcher(Witcher witcher) {
         this.witcher = witcher;
+    }
+
+    public List<Pouch> getTossacoin() {
+        return tossacoin;
+    }
+
+    public void setTossacoin(List<Pouch> tossacoin) {
+        this.tossacoin = tossacoin;
     }
 }
