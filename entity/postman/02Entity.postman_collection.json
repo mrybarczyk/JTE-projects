@@ -6,7 +6,62 @@
 	},
 	"item": [
 		{
-			"name": "Add a person",
+			"name": "Add a person with test",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "4ecf1289-0bcd-4ce2-94d2-b4cf10a0028b",
+						"exec": [
+							"pm.test(\"response should be okay to process\", function () {\r",
+							"    \r",
+							"    var obj = {\r",
+							"    \"personID\": 13,\r",
+							"    \"name\": \"Maciek\",\r",
+							"    \"title\": \"Głowacki\"\r",
+							"}\r",
+							"    pm.response.to.have.body(obj);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"Maciek\",\r\n    \"title\": \"Głowacki\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/api/person",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"person"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Add a person Copy",
 			"request": {
 				"method": "POST",
 				"header": [
@@ -19,7 +74,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"name\": \"Józek\",\r\n    \"title\": \"\"\r\n}",
+					"raw": "{\r\n    \"name\": \"Marilka\",\r\n    \"title\": \"z Blaviken\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -42,6 +97,41 @@
 		},
 		{
 			"name": "Add a witcher",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"Geralt\",\r\n    \"title\": \"z Rivii\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/api/witcher",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"witcher"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Add a witcher Copy",
 			"request": {
 				"method": "POST",
 				"header": [
@@ -89,7 +179,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"people\": [1],\r\n    \"witcherID\": 1,\r\n    \"value\": 400\r\n}",
+					"raw": "{\r\n    \"people\": [1, 2],\r\n    \"witcherID\": 1,\r\n    \"value\": 400\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -111,7 +201,21 @@
 			"response": []
 		},
 		{
-			"name": "Get people",
+			"name": "Get people with test",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "6de2deb6-fab7-4628-806e-31e799d8bcfa",
+						"exec": [
+							"pm.test(\"Status test\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
 			"protocolProfileBehavior": {
 				"disableBodyPruning": true
 			},
@@ -342,67 +446,27 @@
 			"response": []
 		},
 		{
-			"name": "Delete a person",
-			"request": {
-				"method": "DELETE",
-				"header": [],
-				"url": {
-					"raw": "localhost:8080/api/person/1",
-					"host": [
-						"localhost"
-					],
-					"port": "8080",
-					"path": [
-						"api",
-						"person",
-						"1"
-					]
+			"name": "Update a person with test",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "f3ac4380-6d52-4093-9bed-7985ce8549b0",
+						"exec": [
+							"pm.test(\"modified object\", function () {\r",
+							"    \r",
+							"    var obj = {\r",
+							"    \"personID\": 1,\r",
+							"    \"name\": \"Jaskier\",\r",
+							"    \"title\": \"Bard\"\r",
+							"}\r",
+							"    pm.response.to.have.body(obj);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
 				}
-			},
-			"response": []
-		},
-		{
-			"name": "Delete a witcher",
-			"request": {
-				"method": "DELETE",
-				"header": [],
-				"url": {
-					"raw": "localhost:8080/api/witcher/1",
-					"host": [
-						"localhost"
-					],
-					"port": "8080",
-					"path": [
-						"api",
-						"witcher",
-						"1"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Delete a toss",
-			"request": {
-				"method": "DELETE",
-				"header": [],
-				"url": {
-					"raw": "localhost:8080/api/payment/1",
-					"host": [
-						"localhost"
-					],
-					"port": "8080",
-					"path": [
-						"api",
-						"payment",
-						"1"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Update a person",
+			],
 			"request": {
 				"method": "PUT",
 				"header": [
@@ -503,6 +567,94 @@
 					"path": [
 						"api",
 						"payment",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete a toss with test",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "026969e8-2eab-41ee-ac7e-c6e78cf2729c",
+						"exec": [
+							"pm.test(\"deleted object\", function () {\r",
+							"    pm.response.to.have.body(\"\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/api/payment/2",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"payment",
+						"2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete a person with test",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "b94aa1e0-82cc-4403-89a7-1bc004a6b512",
+						"exec": [
+							"pm.test(\"Status test\", function () {\r",
+							"    pm.response.to.have.status(500);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/api/person/1",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"person",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete a witcher",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/api/witcher/1",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"witcher",
 						"1"
 					]
 				}
