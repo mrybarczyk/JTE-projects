@@ -47,10 +47,4 @@ public class Flower {
     }
 
     float price;
-
-
-    @Override
-    public String toString() {
-        return "Flower [id=" + id + ", name=" + name + ", quantity=" + quantity + ", price=" + price + "]";
-    }
 }

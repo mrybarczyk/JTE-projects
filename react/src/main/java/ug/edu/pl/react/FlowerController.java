@@ -21,15 +21,15 @@ public class FlowerController {
 
     @RequestMapping(value = "/create", method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.CREATED)
-    public void create(@RequestBody Flower e) {
-        flowerService.create(e);
+    public void create(@RequestBody Flower f) {
+        flowerService.create(f);
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public ResponseEntity<Mono<Flower>> findById(@PathVariable("id") Integer id) {
-        Mono<Flower> e = flowerService.findById(id);
-        HttpStatus status = e != null ? HttpStatus.OK : HttpStatus.NOT_FOUND;
-        return new ResponseEntity<Mono<Flower>>(e, status);
+        Mono<Flower> f = flowerService.findById(id);
+        HttpStatus status = f != null ? HttpStatus.OK : HttpStatus.NOT_FOUND;
+        return new ResponseEntity<Mono<Flower>>(f, status);
     }
 
     @RequestMapping(value = "/name/{name}", method = RequestMethod.GET)
@@ -39,14 +39,14 @@ public class FlowerController {
 
     @RequestMapping(method = RequestMethod.GET, produces = MediaType.TEXT_EVENT_STREAM_VALUE)
     public Flux<Flower> findAll() {
-        Flux<Flower> emps = flowerService.findAll();
-        return emps;
+        Flux<Flower> fs = flowerService.findAll();
+        return fs;
     }
 
     @RequestMapping(value = "/update", method = RequestMethod.PUT)
     @ResponseStatus(HttpStatus.OK)
-    public Mono<Flower> update(@RequestBody Flower e) {
-        return flowerService.update(e);
+    public Mono<Flower> update(@RequestBody Flower f) {
+        return flowerService.update(f);
     }
 
     @RequestMapping(value = "/delete/{id}", method = RequestMethod.DELETE)
